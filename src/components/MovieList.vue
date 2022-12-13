@@ -14,7 +14,7 @@
         <div>
           <div class="text-h6">{{ movie.title }}</div>
           <div class="text-subtitle3">{{ movie.year }}</div>
-          <q-btn outline icon="add" label="Watchlist" class="q-mt-md" />
+          <q-btn outline icon="verified" label="Watched" class="q-mt-md" />
         </div>
       </q-card-section>
     </q-card>
