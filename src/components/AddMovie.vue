@@ -105,7 +105,7 @@ export default {
 <style scoped>
 div {
   border-radius: 12px;
-  box-shadow: 0 2px 8px gray;
+  box-shadow: 0 2px 8px rgb(77, 77, 77);
   max-width: 40rem;
   margin-left: auto;
   margin-right: auto;

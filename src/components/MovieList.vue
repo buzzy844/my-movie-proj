@@ -6,9 +6,7 @@
           visible="false"
           class="absolute-full text-subtitle2 flex flex-center my-text"
         >
-          <div>
-            {{ movie.description }}
-          </div>
+          {{ movie.description }}
         </q-scroll-area>
       </q-img>
 
