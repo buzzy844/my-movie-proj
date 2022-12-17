@@ -47,7 +47,7 @@ export default {
   },
 
   created() {
-    this.loadMovies().then(() => console.log(this.movies));
+    this.loadMovies();
   },
 };
 </script>
