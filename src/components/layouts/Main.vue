@@ -2,7 +2,7 @@
   <h3 class="q-py-lg bg-grey-10 text-pink-9 q-mb-none">Movie App</h3>
   <div class="wrapper q-pt-lg">
     <AddMovie @push-movie="addMovie" />
-    <MovieList />
+    <MovieList @delete-movie="deleteMovie" />
   </div>
 </template>
 
@@ -44,6 +44,29 @@ export default {
     addMovie(data) {
       this.movies.push(data);
     },
+
+    async deleteMovieDb(id) {
+      const res = await fetch(
+        `https://my-mov-proj-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (res) {
+        console.log("Movie successfully deleted");
+      } else {
+        console.log("Error deleting the movie");
+        console.log(res);
+      }
+    },
+
+    deleteMovie(id) {
+      console.log(this.movies);
+      this.movies = this.movies.filter((movie) => movie.id != id);
+
+      this.deleteMovieDb(id);
+    },
   },
 
   created() {
@@ -61,8 +84,7 @@ h3 {
 
 .wrapper {
   background-color: $grey-8;
-  min-width: fit-content;
-  max-width: 1000px;
+  max-width: 1500px;
   display: block;
   margin-left: auto;
   margin-right: auto;
