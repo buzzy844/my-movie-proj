@@ -77,9 +77,10 @@ export default {
       const data = await res.json();
 
       if (!data?.Response) {
-        throw "an API error occured";
+        throw "an API error occurred";
       }
 
+      data.watched = false;
       this.title = "";
       this.foundMovies = [];
       this.addMovie(data);

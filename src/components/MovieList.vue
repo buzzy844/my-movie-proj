@@ -2,13 +2,15 @@
   <div class="q-pa-md row items-start q-col-gutter-md q-ma-md">
     <div
       class="col-xs-12 col-sm-4 col-md-3 col-lg-2 col-xl-2"
-      v-for="movie of movies"
+      v-for="[index, movie] of movies.entries()"
     >
       <q-card class="bg-grey-10">
         <q-img :src="movie.Poster" :ratio="4 / 6" class="my-img">
-          <q-badge floating right color="grey-10">
-            <q-icon name="star" color="yellow-12" />{{ movie.imdbRating }}
+          <q-badge floating right color="grey-10" class="q-ma-sm">
+            <q-icon name="grade" color="yellow-12" size="13px" />
+            {{ movie.imdbRating }}
           </q-badge>
+
           <q-scroll-area
             :visible="false"
             class="absolute-full text-subtitle2 flex flex-center my-text"
@@ -28,15 +30,25 @@
         </q-card-section>
 
         <q-card-actions class="row q-col-gutter-sm">
-          <div class="col-xs-9">
+          <div class="col-xs-10">
             <q-btn
+              v-if="!movie.watched"
               outline
-              icon="done"
+              icon="close"
+              class="full-width text-red-6"
+              label="Not Watched"
+              @click="changeWatchStatus(index, movie.id)"
+            />
+            <q-btn
+              v-else
+              outline
+              icon="verified"
               class="full-width text-green-6"
               label="Watched"
+              @click="changeWatchStatus(index, movie.id)"
             />
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2">
             <q-btn
               @click="delMovie(movie.id)"
               no-wrap
@@ -65,6 +77,22 @@ export default {
 
     delMovie(id) {
       this.$emit("delete-movie", id);
+    },
+
+    async changeWatchStatus(idx, id) {
+      this.movies[idx].watched = !this.movies[idx].watched;
+
+      const status = this.movies[idx].watched;
+
+      const res = await fetch(
+        `https://my-mov-proj-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({
+            watched: status,
+          }),
+        }
+      );
     },
   },
 };
