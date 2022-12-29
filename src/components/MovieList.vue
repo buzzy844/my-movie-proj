@@ -3,6 +3,7 @@
     <div
       class="col-xs-12 col-sm-4 col-md-3 col-lg-2 col-xl-2"
       v-for="[index, movie] of movies.entries()"
+      :key="movie.imdbID"
     >
       <q-card class="bg-grey-10">
         <q-img :src="movie.Poster" :ratio="4 / 6" class="my-img">
@@ -32,28 +33,24 @@
         <q-card-actions class="row q-col-gutter-sm">
           <div class="col-xs-10">
             <q-btn
-              v-if="!movie.watched"
               outline
-              icon="close"
-              class="full-width text-red-6"
-              label="Not Watched"
-              @click="changeWatchStatus(index, movie.id)"
-            />
-            <q-btn
-              v-else
-              outline
-              icon="verified"
-              class="full-width text-green-6"
-              label="Watched"
+              :icon="movie.watched ? 'check' : 'close'"
+              :label="movie.watched ? 'watched' : 'not watched'"
+              :class="
+                movie.watched
+                  ? 'full-width text-green-6 '
+                  : 'full-width text-red-6'
+              "
               @click="changeWatchStatus(index, movie.id)"
             />
           </div>
+
           <div class="col-xs-2">
             <q-btn
               @click="delMovie(movie.id)"
               no-wrap
               icon="delete"
-              class="full-width text-red-6"
+              class="full-width text-red-6 flip-horizontal-bottom"
               flat
             />
           </div>
@@ -80,19 +77,20 @@ export default {
     },
 
     async changeWatchStatus(idx, id) {
-      this.movies[idx].watched = !this.movies[idx].watched;
-
-      const status = this.movies[idx].watched;
-
-      const res = await fetch(
-        `https://my-mov-proj-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            watched: status,
-          }),
-        }
-      );
+      try {
+        const res = await fetch(
+          `https://my-mov-proj-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
+          {
+            method: "PATCH",
+            body: JSON.stringify({
+              watched: !this.movies[idx].watched,
+            }),
+          }
+        );
+        this.movies[idx].watched = !this.movies[idx].watched;
+      } catch (error) {
+        console.log("error changing status");
+      }
     },
   },
 };

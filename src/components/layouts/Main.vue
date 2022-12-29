@@ -1,5 +1,7 @@
 <template>
-  <h3 class="q-pa-lg bg-grey-10 text-pink-9 q-mb-none">Movie App</h3>
+  <h3 class="q-pa-lg bg-grey-10 text-pink-9 q-mb-none">
+    The Ultimate Movie List WebSite
+  </h3>
   <div class="wrapper q-pt-lg">
     <AddMovie @push-movie="addMovie" />
     <MovieList @delete-movie="deleteMovie" />
