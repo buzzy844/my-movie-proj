@@ -1,12 +1,14 @@
 <template>
-  <div class="q-pa-md bg-grey-6 container" style="max-width: 500px">
-    <q-form @submit="fetchMovie" class="q-gutter-md">
+  <div class="q-pa-md bg-grey-6 container">
+    <q-form class="row">
+      <q-btn label="filter" color="grey-10" class="col-3 q-mr-lg" />
       <q-input
+        class="col-8"
         :loading="fetching"
         :debounce="500"
         v-model="title"
         label="Title"
-        standout="bg-pink-9 text-white"
+        standout="bg-grey-10 text-white"
       />
     </q-form>
 
