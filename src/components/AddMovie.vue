@@ -2,6 +2,13 @@
   <div class="q-pa-md bg-grey-6 container">
     <q-form class="row no-wrap q-pr-md">
       <q-btn
+        v-if="this.moviesAreFiltered"
+        icon="restart_alt"
+        color="grey-10"
+        class="col-1 q-mr-md"
+        @click="resetHandler"
+      />
+      <q-btn
         icon="menu"
         color="grey-10"
         class="col-1 q-mr-md"
@@ -9,7 +16,7 @@
       />
       <q-input
         :disable="this.searchMovieDisabled"
-        class="col-11"
+        class="full-width"
         :loading="fetching"
         :debounce="500"
         v-model="title"
@@ -68,7 +75,7 @@
         options-dense
       />
 
-      <q-btn label="filter" outline />
+      <q-btn label="filter" color="grey-10" @click="filterHandler" />
     </div>
 
     <div
@@ -88,7 +95,7 @@
 
 <script>
 export default {
-  emits: ["push-movie"],
+  emits: ["push-movie", "filter-movies", "reset-movies"],
 
   data() {
     return {
@@ -98,7 +105,7 @@ export default {
       searchMovieDisabled: false,
       filterIsVisible: false,
       filteredYear: { min: 0, max: 0 },
-      filteredRating: { min: 0, max: 0 },
+      filteredRating: { min: 0.0, max: 0.0 },
       filterGenreOptions: [
         "Action",
         "Adventure",
@@ -127,6 +134,7 @@ export default {
       ],
       filteredGenre: "",
       filteredType: "",
+      moviesAreFiltered: false,
     };
   },
 
@@ -149,7 +157,6 @@ export default {
       }
 
       this.foundMovies = data.Search;
-      console.log(this.foundMovies);
       this.fetching = false;
     },
 
@@ -198,6 +205,22 @@ export default {
       this.filteredRating.max = 10.0;
       this.filteredGenre = "";
       this.filteredType = "";
+    },
+
+    filterHandler() {
+      this.$emit("filter-movies", {
+        Year: { ...this.filteredYear },
+        Rating: { ...this.filteredRating },
+        Genre: this.filteredGenre,
+        Type: this.filteredType,
+      });
+      this.enableFilter();
+      this.moviesAreFiltered = true;
+    },
+
+    resetHandler() {
+      this.$emit("reset-movies");
+      this.moviesAreFiltered = false;
     },
   },
 

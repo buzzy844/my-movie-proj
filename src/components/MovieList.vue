@@ -36,11 +36,8 @@
               outline
               :icon="movie.watched ? 'check' : 'close'"
               :label="movie.watched ? 'watched' : 'not watched'"
-              :class="
-                movie.watched
-                  ? 'full-width text-green-6 '
-                  : 'full-width text-red-6'
-              "
+              :class="movie.watched ? 'text-green-6 ' : 'text-red-6'"
+              class="full-width"
               @click="changeWatchStatus(index, movie.id)"
             />
           </div>
