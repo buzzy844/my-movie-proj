@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import { Quasar } from "quasar";
 import { createRouter, createWebHashHistory } from "vue-router";
 import Main from "./components/layouts/Main.vue";
+import MoviePage from "./components/MoviePage.vue";
 
 // Import icon libraries
 import "@quasar/extras/material-icons/material-icons.css";
@@ -14,6 +15,7 @@ const routes = [
     path: "/",
     component: Main,
   },
+  { path: "/moviePage/:movieId", component: MoviePage },
 ];
 
 const router = createRouter({

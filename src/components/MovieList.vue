@@ -21,16 +21,15 @@
         </q-img>
 
         <q-card-section class="bg-grey-10 text-white">
-          <div
-            @click="goTo(movie.imdbID)"
-            class="text-h6 cursor-pointer ellipsis"
-          >
-            {{ movie.Title }}
+          <div class="text-h6 ellipsis q-mb-xs">
+            <router-link :to="'/moviePage/' + movie.id" class="text-white">
+              {{ movie.Title }}
+            </router-link>
           </div>
-          <div class="text-subtitle3">{{ movie.Year }}</div>
+          <div class="text-subtitle2">{{ movie.Year }}</div>
         </q-card-section>
 
-        <q-card-actions class="row q-col-gutter-sm">
+        <q-card-actions class="row q-col-gutter-sm q-pt-xs">
           <div class="col-xs-10">
             <q-btn
               outline
@@ -64,11 +63,6 @@ export default {
   emits: ["delete-movie"],
 
   methods: {
-    goTo(imDbId) {
-      const encoded = encodeURI(imDbId);
-      window.open(`https://www.imdb.com/title/${encoded}`, "_blank");
-    },
-
     delMovie(id) {
       this.$emit("delete-movie", id);
     },
@@ -76,7 +70,7 @@ export default {
     async changeWatchStatus(idx, id) {
       try {
         const res = await fetch(
-          `https://my-mov-proj-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
+          `https://ultimate-movieapp-db-default-rtdb.europe-west1.firebasedatabase.app/movies/${id}.json`,
           {
             method: "PATCH",
             body: JSON.stringify({
@@ -98,6 +92,10 @@ export default {
   width: 100%;
   max-width: fit-content;
 } */
+
+a {
+  text-decoration: none;
+}
 
 .my-img .my-text {
   visibility: hidden;
