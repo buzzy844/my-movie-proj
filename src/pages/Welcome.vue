@@ -11,8 +11,8 @@
 
 <script>
 import { computed } from "vue";
-import AddMovie from "../AddMovie.vue";
-import MovieList from "../MovieList.vue";
+import AddMovie from "./../components/AddMovie.vue";
+import MovieList from "./../components/MovieList.vue";
 
 const initialFilters = {
   Year: { min: 1950, max: 2022 },

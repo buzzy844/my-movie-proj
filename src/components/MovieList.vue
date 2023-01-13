@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md row items-start q-col-gutter-md q-ma-md">
     <div
-      class="col-xs-12 col-sm-4 col-md-3 col-lg-2 col-xl-2"
+      class="col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2"
       v-for="[index, movie] of movies.entries()"
       :key="movie.imdbID"
     >
@@ -28,8 +28,7 @@
           </div>
           <div class="text-subtitle2">{{ movie.Year }}</div>
         </q-card-section>
-
-        <q-card-actions class="row q-col-gutter-sm q-pt-xs">
+        <q-card-actions v-if="!noActions" class="row q-col-gutter-sm q-pt-xs">
           <div class="col-xs-10">
             <q-btn
               outline
@@ -61,6 +60,13 @@ export default {
   inject: ["movies"],
 
   emits: ["delete-movie"],
+
+  props: {
+    noActions: {
+      default: false,
+      type: Boolean,
+    },
+  },
 
   methods: {
     delMovie(id) {
