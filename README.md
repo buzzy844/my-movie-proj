@@ -1,8 +1,9 @@
-# Vue 3 + Vite
+# Movie App Project
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+An app that helps you to keep track your progress in watching every movie you ever wanted.
+The app uses OMDB Api to get the data related to the movies you enter in the app and a realtime firebase Db to keep trach of all of the movies added.
 
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-# my-movie-proj
+
